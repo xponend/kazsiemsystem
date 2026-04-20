@@ -37,16 +37,16 @@ def write_text_report(alerts):
 
 
 def write_html_report(alerts):
-    high = sum(1 for a in alerts if "[HIGH]" in a)
-    medium = sum(1 for a in alerts if "[MEDIUM]" in a)
-    low = sum(1 for a in alerts if "[LOW]" in a)
+    high = sum(1 for a in alerts if "[ЖОҒАРЫ]" in a)
+    medium = sum(1 for a in alerts if "[ОРТАША]" in a)
+    low = sum(1 for a in alerts if "[ТӨМЕН]" in a)
 
     html = f"""
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Mini SIEM Report</title>
+    <title>KazSIEMSystem Есебі</title>
     <style>
         body {{
             font-family: Arial, Helvetica, sans-serif;
@@ -81,16 +81,16 @@ def write_html_report(alerts):
 </head>
 <body>
 
-<h1>Mini SIEM Alert Report</h1>
+<h1>KazSIEMSystem Ескерту Есебі</h1>
 <div class="meta">
-Generated: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%SZ')} (UTC)
+Жасалған уақыт: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%SZ')} (UTC)
 </div>
 
 <div class="summary">
-    <strong>Summary:</strong><br><br>
-    <span class="high">High: {high}</span> &nbsp;|&nbsp;
-    <span class="medium">Medium: {medium}</span> &nbsp;|&nbsp;
-    <span class="low">Low: {low}</span>
+    <strong>Қорытынды:</strong><br><br>
+    <span class="high">Жоғары: {high}</span> &nbsp;|&nbsp;
+    <span class="medium">Орташа: {medium}</span> &nbsp;|&nbsp;
+    <span class="low">Төмен: {low}</span>
 </div>
 
 <ul>
@@ -98,9 +98,9 @@ Generated: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%SZ')} (UTC)
 
    
     for alert in alerts:
-        if "[HIGH]" in alert:
+        if "[ЖОҒАРЫ]" in alert:
             html += f"<li class='high'>{alert}</li>\n"
-        elif "[MEDIUM]" in alert:
+        elif "[ОРТАША]" in alert:
             html += f"<li class='medium'>{alert}</li>\n"
         else:
             html += f"<li class='low'>{alert}</li>\n"
@@ -124,21 +124,21 @@ Generated: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%SZ')} (UTC)
 
 
 
-# Console Output
+# Консольге шығару
 def pretty_print(alerts):
-    print(Fore.CYAN + "\n==== ALERTS ====\n" + Style.RESET_ALL)
+    print(Fore.CYAN + "\n==== ЕСКЕРТУЛЕР ====\n" + Style.RESET_ALL)
 
     for alert in alerts:
-        if "[HIGH]" in alert:
+        if "[ЖОҒАРЫ]" in alert:
             print(Fore.RED + alert + Style.RESET_ALL)
-        elif "[MEDIUM]" in alert:
+        elif "[ОРТАША]" in alert:
             print(Fore.YELLOW + alert + Style.RESET_ALL)
         else:
             print(Fore.GREEN + alert + Style.RESET_ALL)
 
 
 
-# Main Function
+# Негізгі функция
 def main():
     events = read_logs(LOG_FILE)
 
@@ -152,7 +152,7 @@ def main():
     write_text_report(alerts)
     write_html_report(alerts)
 
-    print(Fore.CYAN + f"\nReports created: {TXT_OUT} and {HTML_OUT}\n" + Style.RESET_ALL)
+    print(Fore.CYAN + f"\nЕсептер жасалды: {TXT_OUT} және {HTML_OUT}\n" + Style.RESET_ALL)
 
     import webbrowser
     webbrowser.open(os.path.abspath(HTML_OUT))

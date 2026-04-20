@@ -3,27 +3,27 @@ import re
 def parse_log_line(line):
     event = {}
 
-    # Extract timestamp
+    # Уақыт белгісін алу
     ts = re.search(r"Time:\s*(.*)", line)
     if ts:
         event["timestamp"] = ts.group(1)
 
-    # Extract Event ID
+    # Оқиға ID алу
     eid = re.search(r"EventID:\s*(\d+)", line)
     if eid:
         event["event_id"] = int(eid.group(1))
 
-    # Extract user
+    # Пайдаланушыны алу
     user = re.search(r"User:\s*(.*)", line)
     if user:
         event["user"] = user.group(1)
 
-    # Extract IP
+    # IP мекенжайын алу
     ip = re.search(r"IP:\s*(.*)", line)
     if ip:
         event["ip"] = ip.group(1)
 
-    # Extract command
+    # Пәрменді алу
     cmd = re.search(r"Command:\s*(.*)", line)
     if cmd:
         event["command"] = cmd.group(1)

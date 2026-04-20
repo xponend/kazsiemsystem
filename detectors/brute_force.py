@@ -10,6 +10,6 @@ def detect_bruteforce(events):
 
     for ip, count in failed_attempts.items():
         if count >= 3:
-            alerts.append(f"[HIGH] Possible Brute Force Attack from IP {ip} ({count} failed logins)")
+            alerts.append(f"[ЖОҒАРЫ] IP {ip} мекенжайынан ықтимал Brute Force шабуылы ({count} сәтсіз кіру әрекеті)")
 
     return alerts
